@@ -43,8 +43,52 @@ const addProduct = async (req, res) => {
     }
   };
 
+  const deleteProduct = async (req, res) => {
+    try {
+      const productId = req.params.id; 
+      const deletedProduct = await Product.findByIdAndDelete(productId);
+  
+      if (!deletedProduct) {
+        return res.status(404).json({ message: 'Produit non trouvé' });
+      }
+  
+      res.json({ message: 'Produit supprimé avec succès', deletedProduct });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  const getProduct = async (req, res) => {
+    try {
+      //if no input for id AND label => return all items
+      const { id, label } = req.query;
+  
+      if (id) {
+        const product = await Product.findById(id);
+        if (!product) {
+          return res.status(404).json({ message: 'Produit non trouvé' });
+        }
+        return res.json(product);
+      } else if (label) {
+        const product = await Product.findOne({ label });
+        if (!product) {
+          return res.status(404).json({ message: 'Produit non trouvé' });
+        }
+        return res.json(product);
+      } else {
+        const products = await Product.find();
+        res.json(products);
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+
   module.exports = {
     addProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct,
+    getProduct
   };
   
