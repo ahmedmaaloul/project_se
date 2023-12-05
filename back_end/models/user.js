@@ -27,7 +27,8 @@ const userSchema = new Schema(
     birthdate: {
       type: Date,
       required: true,
-    }
+    },
+    wishlist: [wishlistItemSchema],
   },
   { timestamps: true }
 );
