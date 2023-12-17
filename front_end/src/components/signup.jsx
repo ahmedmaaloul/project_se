@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
-
+import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
+import './style.css';
 const SignUp = () => {
     const [userData, setUserData] = useState({
         email: '',
@@ -27,6 +27,8 @@ const SignUp = () => {
     };
 
     return (
+        <div style={formContainerStyle}>
+        <h1 className="animated-title">Sign Up</h1> {/* Title with animation */}
         <form onSubmit={handleSubmit} style={formStyle}>
             <TextField label="Email" type="email" name="email" value={userData.email} onChange={handleChange} fullWidth margin="normal" />
             <TextField label="Password" type="password" name="password" value={userData.password} onChange={handleChange} fullWidth margin="normal" />
@@ -45,9 +47,12 @@ const SignUp = () => {
 
             <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Sign Up</Button>
         </form>
+    </div>
+        
     );
 };
 
 const formStyle = { maxWidth: '500px', margin: 'auto', padding: '20px' };
+const formContainerStyle = { maxWidth: '500px', margin: 'auto', padding: '20px', textAlign: 'center' };
 
 export default SignUp;

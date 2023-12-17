@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button } from '@mui/material';
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
