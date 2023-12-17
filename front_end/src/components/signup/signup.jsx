@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { TextField, Button, MenuItem, FormControl, InputLabel, Select } from '@material-ui/core';
 
 const SignUp = () => {
-    const [formData, setFormData] = useState({
+    const [userData, setUserData] = useState({
         email: '',
         password: '',
         firstName: '',
@@ -13,41 +13,41 @@ const SignUp = () => {
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setUserData({ ...userData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/signup', formData);
+            const response = await axios.post('http://localhost:5000/signup', userData);
             console.log(response.data);
-            // Redirect or show success message
         } catch (error) {
             console.error(error.response.data);
-            // Handle errors
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <TextField label="Email" type="email" name="email" onChange={handleChange} />
-            <TextField label="Password" type="password" name="password" onChange={handleChange} />
-            <TextField label="First Name" name="firstName" onChange={handleChange} />
-            <TextField label="Last Name" name="lastName" onChange={handleChange} />
+        <form onSubmit={handleSubmit} style={formStyle}>
+            <TextField label="Email" type="email" name="email" value={userData.email} onChange={handleChange} fullWidth margin="normal" />
+            <TextField label="Password" type="password" name="password" value={userData.password} onChange={handleChange} fullWidth margin="normal" />
+            <TextField label="First Name" name="firstName" value={userData.firstName} onChange={handleChange} fullWidth margin="normal" />
+            <TextField label="Last Name" name="lastName" value={userData.lastName} onChange={handleChange} fullWidth margin="normal" />
 
-            <FormControl>
+            <FormControl fullWidth margin="normal">
                 <InputLabel>Gender</InputLabel>
-                <Select name="gender" value={formData.gender} onChange={handleChange}>
+                <Select name="gender" value={userData.gender} onChange={handleChange}>
                     <MenuItem value="Male">Male</MenuItem>
                     <MenuItem value="Female">Female</MenuItem>
                 </Select>
             </FormControl>
 
-            <TextField type="date" name="birthdate" onChange={handleChange} />
+            <TextField label="Birthdate" type="date" name="birthdate" value={userData.birthdate} onChange={handleChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} />
 
-            <Button type="submit" variant="contained" color="primary">Sign Up</Button>
+            <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>Sign Up</Button>
         </form>
     );
 };
+
+const formStyle = { maxWidth: '500px', margin: 'auto', padding: '20px' };
 
 export default SignUp;
