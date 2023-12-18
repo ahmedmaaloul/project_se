@@ -8,3 +8,40 @@
     0% { opacity: 0; transform: translateY(-20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to right, rgb(130, 143, 238), lightblue); /* Adjust the gradient to match the exact colors you want */
+    text-align: center;
+  }
+  
+  .animated-text {
+    font-size: 4em;
+    font-weight: bold;
+    color: white;
+    animation: fadeIn 2s ease-in-out infinite alternate; /* Simple fade-in animation */
+  }
+  
+  .underline {
+    width: 50%;
+    height: 3px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 2px;
+    position: relative;
+    animation: drawLine 2s ease-in-out infinite alternate; /* Animation that simulates drawing of the line */
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes drawLine {
+    from { width: 0; }
+    to { width: 50%; }
+  }
+  
