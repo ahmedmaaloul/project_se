@@ -16,7 +16,7 @@ const NavbarComponent = ({ user, setCurrentUser }) => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand onClick={() => navigate('/')}>ToutVente</Navbar.Brand>
+        <Navbar.Brand className='brand' onClick={() => navigate('/')}>ToutVente</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
