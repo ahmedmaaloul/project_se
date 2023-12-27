@@ -1,14 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { swaggerUi, specs } = require('./swaggerConfig'); // Ensure this path matches where your Swagger configuration is
 
 // Import your routes
 const userRoutes = require('./routes/userRoutes'); // Update the path according to your project structure
+const productRoutes = require("./routes/productRoutes");
+const cartRoutes = require('./routes/cartRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes')
+const path = require('path');
 
 const app = express();
 // Body parser middleware
 app.use(bodyParser.json());
+app.use(cors());
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://root:root123@projectse.gqpcdqq.mongodb.net/')
@@ -18,8 +25,16 @@ mongoose.connect('mongodb+srv://root:root123@projectse.gqpcdqq.mongodb.net/')
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-// Use routes
-app.use(userRoutes);
+
+app.use('/uploads', express.static(path.join(__dirname, 'middleware', 'uploads')));
+
+
+app.use('/api/user',userRoutes);
+app.use('/api/cart', cartRoutes);
+app.use("/api/products", productRoutes);
+app.use('/api',invoiceRoutes);
+
+
 
 // Handle 404 - Not Found
 app.use((req, res, next) => {
