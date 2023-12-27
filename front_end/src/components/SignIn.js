@@ -26,6 +26,7 @@ const SignIn = ({ setCurrentUser }) => {
   };
 
   return (
+    <div className='container'>
     <Form onSubmit={handleSubmit}>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form.Group className="mb-3">
@@ -38,6 +39,7 @@ const SignIn = ({ setCurrentUser }) => {
       </Form.Group>
       <Button variant="primary" type="submit">Sign In</Button>
     </Form>
+    </div>
   );
 };
 

@@ -34,7 +34,7 @@ const ProductDashboard = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <Button variant="primary" onClick={() => navigate('/create-product')} style={{ marginBottom: '20px' }}>
         Create Product
       </Button>
@@ -67,7 +67,7 @@ const ProductDashboard = () => {
           ))}
         </tbody>
       </Table>
-    </>
+    </div>
   );
 };
 

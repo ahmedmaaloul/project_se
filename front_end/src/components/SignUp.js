@@ -29,6 +29,7 @@ const SignUp = () => {
   };
 
   return (
+    <div className="container">
     <Form onSubmit={handleSubmit}>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form.Group className="mb-3">
@@ -49,6 +50,7 @@ const SignUp = () => {
       </Form.Group>
       <Button variant="primary" type="submit">Sign Up</Button>
     </Form>
+    </div>
   );
 };
 

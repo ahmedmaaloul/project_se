@@ -9,6 +9,8 @@ import SignUp from './components/SignUp';
 import Home from './components/Home';
 import CreateProductForm from './components/CreateProductForm';
 import EditProductForm from './components/EditProductForm';
+import Cart from './components/Cart'; // Import the Cart component
+import FooterComponent from './components/FooterComponent';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -27,16 +29,22 @@ const App = () => {
 
   return (
     <Router>
+      <div className="d-flex flex-column min-vh-100">
       <NavbarComponent user={currentUser} setCurrentUser={setCurrentUser} />
-      <Routes>
-        <Route path="/" element={<Home currentUser={currentUser} />} />
-        <Route path="/signin" element={<SignIn setCurrentUser={setCurrentUser} />} />
-        <Route path="/signup" element={<SignUp />} />
-        {currentUser?.admin && <Route path="/product-dashboard" element={<ProductDashboard />} />}
-        {currentUser?.admin && <Route path="/create-product" element={<CreateProductForm />} />}
-        {currentUser?.admin && <Route path="/edit-product/:id" element={<EditProductForm/>}/>}
-        {/* Other routes as needed */}
-      </Routes>
+      <div className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<Home currentUser={currentUser} />} />
+          <Route path="/signin" element={<SignIn setCurrentUser={setCurrentUser} />} />
+          <Route path="/signup" element={<SignUp />} />
+          {currentUser?.admin && <Route path="/product-dashboard" element={<ProductDashboard />} />}
+          {currentUser?.admin && <Route path="/create-product" element={<CreateProductForm />} />}
+          {currentUser?.admin && <Route path="/edit-product/:id" element={<EditProductForm/>} />}
+          {currentUser && !currentUser.admin && <Route path="/cart" element={<Cart currentUser={currentUser} />} />}
+          {/* Other routes as needed */}
+        </Routes>
+      </div>
+      <FooterComponent/>
+      </div>
     </Router>
   );
 };

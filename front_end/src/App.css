@@ -7,3 +7,12 @@
   height: 200px;      /* Set a fixed height */
   object-fit: cover;  /* Ensure the image covers the area, maintaining aspect ratio */
 }
+
+/* App.css */
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.min-vh-100 {
+  min-height: 100vh;
+}

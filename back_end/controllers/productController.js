@@ -1,14 +1,21 @@
 const Product = require("../models/Product");
 const upload = require("../middleware/multer");
+const Cart = require('../models/Cart');
 
 
 // Get all products
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+      let query = {};
+      if (req.query.search) {
+          query.label = { $regex: req.query.search, $options: 'i' }; // 'i' for case insensitive
+      }
+
+      const products = await Product.find(query);
+      res.json(products);
   } catch (error) {
-    res.status(500).send(error.message);
+      console.error('Error fetching products:', error);
+      res.status(500).send("Error fetching products");
   }
 };
 
@@ -31,11 +38,24 @@ exports.updateProduct = async (req, res) => {
 };
 
 // Delete a product
+
 exports.deleteProduct = async (req, res) => {
   try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Product deleted successfully' });
+    const productId = req.params.id;
+
+    // Delete the product
+    await Product.findByIdAndDelete(productId);
+
+    // Find and update all carts that contain the deleted product
+    const carts = await Cart.find({ 'items.product': productId });
+    for (let cart of carts) {
+      cart.items = cart.items.filter(item => item.product.toString() !== productId);
+      await cart.save();
+    }
+
+    res.json({ message: 'Product deleted successfully and removed from carts' });
   } catch (error) {
+    console.error('Error deleting product:', error);
     res.status(500).send(error.message);
   }
 };

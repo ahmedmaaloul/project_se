@@ -8,6 +8,7 @@ const { swaggerUi, specs } = require('./swaggerConfig'); // Ensure this path mat
 const userRoutes = require('./routes/userRoutes'); // Update the path according to your project structure
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require('./routes/cartRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes')
 const path = require('path');
 
 const app = express();
@@ -31,6 +32,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'middleware', 'uploads')
 app.use('/api/user',userRoutes);
 app.use('/api/cart', cartRoutes);
 app.use("/api/products", productRoutes);
+app.use('/api',invoiceRoutes);
 
 
 

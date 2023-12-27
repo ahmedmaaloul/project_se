@@ -7,5 +7,7 @@ const verifyToken = require('../middleware/verifyToken');
 router.post('/add',verifyToken, cartController.addItemToCart);
 router.post('/remove',verifyToken, cartController.removeItemFromCart);
 router.get('/my',verifyToken, cartController.getUserCart);
+router.post('/update-quantity', verifyToken, cartController.updateQuantity);
+router.post('/clear', verifyToken, cartController.clearCart);
 
 module.exports = router;
