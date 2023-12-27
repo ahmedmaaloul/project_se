@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, Image } from 'react-bootstrap';
+import { Form, Button, Image, Container } from 'react-bootstrap';
 
 const EditProductForm = () => {
   const [product, setProduct] = useState({ label: '', description: '', price: '' });
@@ -77,6 +77,7 @@ const EditProductForm = () => {
   };
 
   return (
+  <Container>
     <Form onSubmit={handleSubmit}>
        <Form.Group className="mb-3">
         <Form.Label>Label</Form.Label>
@@ -99,6 +100,7 @@ const EditProductForm = () => {
       </Form.Group>
       <Button variant="success" type="submit">Update Product</Button>
     </Form>
+    </Container> 
   );
 };
 
