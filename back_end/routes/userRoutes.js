@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { signup, signin, requestResetPassword, resetPassword } = require('../controllers/userController'); // Import your controllers
+const { signup, signin, requestResetPassword, resetPassword, getUserData } = require('../controllers/userController'); // Import your controllers
+const verifyToken = require('../middleware/verifyToken');
 
 /**
  * @swagger
@@ -143,13 +144,42 @@ const { signup, signin, requestResetPassword, resetPassword } = require('../cont
  *         description: Invalid or expired token
  */
 
+/**
+ * @swagger
+ * /reset-password/{token}:
+ *   post:
+ *     summary: Reset the user's password
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newPassword
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *     responses:
+ *       200:
+ *         description: Password successfully reset
+ *       400:
+ *         description: Invalid or expired token
+ */
+
+router.get('/', verifyToken, getUserData);
 router.post('/signup', signup);
 router.post('/signin', signin);
-
-
 router.post('/request-reset-password', requestResetPassword);
 router.post('/reset-password/:token', resetPassword);
-
-router.use('/wishlist', wishlistRoutes);
+router.get('/', verifyToken, getUserData);
 
 module.exports = router;
